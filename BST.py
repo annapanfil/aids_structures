@@ -48,8 +48,17 @@ def binary_insert(root, node):
                 binary_insert(root.r_child, node)
 
 
+def search_tree(root, value):
+    if root is None or root.value == value:
+        return root
+    if value < root.value:
+        return search(root.left_nod, value)
+    else:
+        return search(root.right_node, value)
+
+
 def in_order_print(root):
-    if root is None:
+    if not root:
         return
     in_order_print(root.left_node)
     print(root.value)
@@ -64,9 +73,29 @@ def pre_order_print(root):
     pre_order_print(root.right_node)
 
 
+def delete_last_node(root, value):
+    if root.value == value:
+        root.value = None
+        return
+    if value < root.value:
+        if value == root.left_node.value:
+            root.left_node = None
+        else:
+            delete_last_node(root.left_node, value)
+    if value > root.value:
+        if value == root.right_node.value:
+            root.right_node = None
+        else:
+            delete_last_node(root.right_node, value)
+
+
 shuffled_list = generate_unordered_list(5, 0, 15)
 print(shuffled_list)
 root = insert_to_tree(None, shuffled_list[0])
 for i in shuffled_list[1:]:
     insert_to_tree(root, i)
 in_order_print(root)
+for i in shuffled_list[::-1]:
+    print("--------")
+    delete_last_node(root, i)
+    in_order_print(root)
