@@ -52,9 +52,9 @@ def search_tree(root, value):
     if root is None or root.value == value:
         return root
     if value < root.value:
-        return search(root.left_nod, value)
+        return search_tree(root.left_node, value)
     else:
-        return search(root.right_node, value)
+        return search_tree(root.right_node, value)
 
 
 def in_order_print(root):
@@ -88,14 +88,29 @@ def delete_last_node(root, value):
         else:
             delete_last_node(root.right_node, value)
 
+def create_bst(data, root = None):
+    root = insert_to_tree(None, data[0])
+    for i in data[1:]:
+        insert_to_tree(root, i)
+    return root
 
-shuffled_list = generate_unordered_list(5, 0, 15)
-print(shuffled_list)
-root = insert_to_tree(None, shuffled_list[0])
-for i in shuffled_list[1:]:
-    insert_to_tree(root, i)
-in_order_print(root)
-for i in shuffled_list[::-1]:
-    print("--------")
-    delete_last_node(root, i)
-    in_order_print(root)
+def remove_bst(data, root):
+    for i in data[::-1]:
+        delete_last_node(root, i)
+    return 0
+
+def search_bst(data, root):
+    for i in data:
+        search_tree (root, i)
+    return 0
+
+# shuffled_list = generate_unordered_list(5, 0, 15)
+# print(shuffled_list)
+# root = insert_to_tree(None, shuffled_list[0])
+# for i in shuffled_list[1:]:
+#     insert_to_tree(root, i)
+# in_order_print(root)
+# for i in shuffled_list[::-1]:
+#     print("--------")
+#     delete_last_node(root, i)
+#     in_order_print(root)

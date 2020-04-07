@@ -4,18 +4,17 @@ class Record:
         self.next = next
 
     def __str__(self):
-        return str(self.value)
+        return str(self.value)+"["+str(self.next.value)+"]"
 
 def showList(head):
     print("list:", end=' ')
     record = head
     while record.next!= 0:
-        print(record.value, end=' ')
+        print(record, end=' ')
         record = record.next
     print(record.value) # ostatni też
 
-def createList(tab): # tworzy listę jednokierunkową, sortując elementy
-    head = 0
+def createList(tab, head = 0): # tworzy listę jednokierunkową, sortując elementy
     for number in tab:
         flag = 0
         if head == 0:
@@ -44,7 +43,7 @@ def createList(tab): # tworzy listę jednokierunkową, sortując elementy
                     prevrecord.next = newrecord
     return head
 
-def searchList(head, tab):
+def searchList(tab, head):
     for wanted in tab:
         checkrecord = head
         while checkrecord.value != wanted:
@@ -55,7 +54,8 @@ def searchList(head, tab):
         # print(wanted, "found")
     return 0
 
-def removeList(head):  # usuwanie listy - od początku
+# tab jest niepotrzebne ale dla ujednolicenia zapisu do pliku się przekazuje - głupie, ale działa?
+def removeList(tab, head):  # usuwanie listy - od początku
     removeRecord = head
     while removeRecord.next != 0:
         head = removeRecord.next
@@ -64,12 +64,12 @@ def removeList(head):  # usuwanie listy - od początku
     return 0
 
 
-# def main():
-#     data = [3, 1 ,2, 7, 5, 4, 8, 9]
-#     head = createList(data)
-#     showList(head)
-#     if searchList(head, data)==0: print("Found everything")
-#     if removeList(head) == 0: print("Removed everything")
-#
-# if __name__ == "__main__":
-#     main()
+def main():
+    data = [3, 1 ,2, 7, 5, 4, 8, 9]
+    head = createList(data)
+    showList(head)
+    if searchList(data, head)==0: print("Found everything")
+    if removeList([], head) == 0: print("Removed everything")
+
+if __name__ == "__main__":
+    main()
