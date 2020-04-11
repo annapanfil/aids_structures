@@ -104,6 +104,23 @@ def search_bst(data, root):
         search_tree (root, i)
     return 0
 
+def find_height(root):
+    if root is None:
+        return 0
+    else:
+        left_height = find_height(root.left_node)
+        right_height = find_height(root.right_node)
+        if left_height > right_height:
+            return left_height + 1
+        else:
+            return right_height + 1
+
+def find_min_value(root):
+    temp_node = root
+    while temp_node.left is not None:
+        temp_node = temp_node.left
+    return temp_node.value
+
 # shuffled_list = generate_unordered_list(5, 0, 15)
 # print(shuffled_list)
 # root = insert_to_tree(None, shuffled_list[0])
