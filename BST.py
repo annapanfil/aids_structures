@@ -121,13 +121,36 @@ def find_min_value(root):
         temp_node = temp_node.left
     return temp_node.value
 
-# shuffled_list = generate_unordered_list(5, 0, 15)
-# print(shuffled_list)
-# root = insert_to_tree(None, shuffled_list[0])
+def in_order_list(root,io_list):
+    if not root:
+        return
+    in_order_list(root.left_node,io_list)
+    io_list.append(root.value)
+    in_order_list(root.right_node,io_list)
+
+
+def create_bst_from_io_list(io_list):
+    if not io_list:
+        return None
+    m = int(len(io_list) / 2)
+    root = Node(io_list[m])
+    root.left_node = create_bst_from_io_list(io_list[:m])
+    root.right_node = create_bst_from_io_list(io_list[m + 1:])
+    return root
+
+shuffled_list = generate_unordered_list(10, 0, 22)
+print(shuffled_list)
+root = insert_to_tree(None, shuffled_list[0])
+
 # for i in shuffled_list[1:]:
 #     insert_to_tree(root, i)
-# in_order_print(root)
+# print(find_height(root))
+# lista =[]
+# in_order_list(root,lista)
+# print(lista)
+# root_avl=create_bst_from_io_list(lista)
+# print(find_height(root_avl))
+
 # for i in shuffled_list[::-1]:
 #     print("--------")
 #     delete_last_node(root, i)
-#     in_order_print(root)
