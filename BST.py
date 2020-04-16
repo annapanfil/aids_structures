@@ -120,6 +120,12 @@ def find_min_value(root):
         temp_node = temp_node.left_node
     return temp_node.value
 
+def find_max_value(root):
+    temp_node = root
+    while temp_node.right_node is not None:
+        temp_node = temp_node.right_node
+    return temp_node.value
+
 def in_order_list(root,io_list):
     if not root:
         return
