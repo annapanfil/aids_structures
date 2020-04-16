@@ -14,12 +14,6 @@ class Node:
         self.left_node = left_node
         self.right_node = right_node
 
-    def add_right_node(self, right_node):
-        self.right_node = right_node
-
-    def add_right_node(self, left_node):
-        self.left_node = left_node
-
 
 def insert_to_tree(root, value):
     if root is None:
@@ -37,15 +31,15 @@ def binary_insert(root, node):
         root = node
     else:
         if root.data > node.data:
-            if root.l_child is None:
-                root.l_child = node
+            if root.left_node is None:
+                root.left_node = node
             else:
-                binary_insert(root.l_child, node)
+                binary_insert(root.left_node, node)
         else:
-            if root.r_child is None:
-                root.r_child = node
+            if root.right_node is None:
+                root.right_node = node
             else:
-                binary_insert(root.r_child, node)
+                binary_insert(root.right_node, node)
 
 
 def search_tree(root, value):
@@ -56,21 +50,30 @@ def search_tree(root, value):
     else:
         return search_tree(root.right_node, value)
 
+def search_bst(data, root):
+    for i in data:
+        search_tree (root, i)
+    return 0
+
 
 def in_order_print(root):
-    if not root:
-        return
-    in_order_print(root.left_node)
-    print(root.value)
-    in_order_print(root.right_node)
-
+    if root:
+        in_order_print(root.left_node)
+        print(root.value,end=" ")
+        in_order_print(root.right_node)
 
 def pre_order_print(root):
-    if not root:
-        return
-    print(root.value)
-    pre_order_print(root.left_node)
-    pre_order_print(root.right_node)
+    if root:
+        print(root.value,end=" ")
+        pre_order_print(root.left_node)
+        pre_order_print(root.right_node)
+
+
+def post_order_print(root):
+    if root:
+        post_order_print(root.left_node)
+        post_order_print(root.right_node)
+        print(root.value,end=" ")
 
 
 def delete_last_node(root, value):
@@ -99,10 +102,6 @@ def remove_bst(data, root):
         delete_last_node(root, i)
     return 0
 
-def search_bst(data, root):
-    for i in data:
-        search_tree (root, i)
-    return 0
 
 def find_height(root):
     if root is None:
@@ -117,8 +116,8 @@ def find_height(root):
 
 def find_min_value(root):
     temp_node = root
-    while temp_node.left is not None:
-        temp_node = temp_node.left
+    while temp_node.left_node is not None:
+        temp_node = temp_node.left_node
     return temp_node.value
 
 def in_order_list(root,io_list):
@@ -138,19 +137,21 @@ def create_bst_from_io_list(io_list):
     root.right_node = create_bst_from_io_list(io_list[m + 1:])
     return root
 
-shuffled_list = generate_unordered_list(10, 0, 22)
-print(shuffled_list)
-root = insert_to_tree(None, shuffled_list[0])
+if __name__ == "__main__":
+    export_data_to_file(2,3,"data/wynik.txt", createList)
+    shuffled_list = generate_unordered_list(10, 0, 22)
+    print(shuffled_list)
+    root = insert_to_tree(None, shuffled_list[0])
 
-# for i in shuffled_list[1:]:
-#     insert_to_tree(root, i)
-# print(find_height(root))
-# lista =[]
-# in_order_list(root,lista)
-# print(lista)
-# root_avl=create_bst_from_io_list(lista)
-# print(find_height(root_avl))
+    for i in shuffled_list[1:]:
+        insert_to_tree(root, i)
+    print(find_height(root))
+    lista =[]
+    in_order_list(root,lista)
+    print(lista)
+    root_avl=create_bst_from_io_list(lista)
+    print(find_height(root_avl))
 
-# for i in shuffled_list[::-1]:
-#     print("--------")
-#     delete_last_node(root, i)
+    for i in shuffled_list[::-1]:
+        print("--------")
+        delete_last_node(root, i)

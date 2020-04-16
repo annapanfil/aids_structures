@@ -18,5 +18,21 @@ def main():
         export_data_to_file(data, filenames[4], search_bst, root)
         export_data_to_file(data, filenames[5], remove_bst, root)
 
+def test(filename):
+    input_file = open(filename, "r")
+    content=input_file.readlines()
+    data = [ int(x) for x in content]
+    print(data)
+    root = create_bst(data)
+    print("height = ", find_height(root))
+    print("Leftmost node = ",find_min_value(root))
+    print("In order:")
+    in_order_print(root)
+    print("\nPre-order: ")
+    pre_order_print(root)
+    print("\nPost-order: ")
+    post_order_print(root)
+
 if __name__ == '__main__':
-    main()
+    #main()
+    test("data/example.txt")
